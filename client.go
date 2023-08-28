@@ -155,9 +155,9 @@ type Client struct {
 //
 // Example:
 //
-//   client, err := elastic.NewClient(
-//     elastic.SetURL("http://127.0.0.1:9200", "http://127.0.0.1:9201"),
-//     elastic.SetBasicAuth("user", "secret"))
+//	client, err := elastic.NewClient(
+//	  elastic.SetURL("http://127.0.0.1:9200", "http://127.0.0.1:9201"),
+//	  elastic.SetBasicAuth("user", "secret"))
 //
 // If no URL is configured, Elastic uses DefaultURL by default.
 //
@@ -1162,6 +1162,7 @@ func (c *Client) startupHealthcheck(parentCtx context.Context, timeout time.Dura
 			defer cancel()
 			req = req.WithContext(ctx)
 			res, err := c.c.Do(req)
+			fmt.Printf("testing es... req.url:%#v, res:%#v, err:%#v\n", req.URL, res, err)
 			if err == nil && res != nil && res.StatusCode >= 200 && res.StatusCode < 300 {
 				return nil
 			} else if err != nil {
